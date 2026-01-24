@@ -26,7 +26,7 @@ export function Navbar() {
             <Link className={buttonVariants()} href="/auth/login">
             Login
             </Link>
-            <Link className={buttonVariants({variant:"outline"})} href="/auth/signup">
+            <Link className={buttonVariants({variant:"outline"})} href="/auth/sign-up">
             Sign Up
             </Link>
             <ThemeToggle />
