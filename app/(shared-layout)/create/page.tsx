@@ -26,6 +26,7 @@ import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createPostAction } from "@/app/actions";
 
 export default function CreateRoute() {
   const [isPending, startTransition] = useTransition();
@@ -40,8 +41,10 @@ export default function CreateRoute() {
   });
 
   function onSubmit(values: z.infer<typeof postSchema>) {
-    startTransition(() => {
-      mutation({ title: values.title, content: values.content });
+    startTransition(async() => {
+      // mutation({ title: values.title, content: values.content });
+      console.log("this runs on client side");
+      await createPostAction();
 
       toast.success("Post created successfully");
       router.push("/");
