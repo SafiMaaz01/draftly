@@ -9,8 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client"
 import z from "zod"
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react"
+import { Loader2 } from "lucide-react"
 
 export default function SignUpPage() {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const form = useForm({resolver: zodResolver(signUpSchema), defaultValues:{
     email: "",
     name: "",
@@ -18,12 +24,23 @@ export default function SignUpPage() {
   }});
 
   // authclient is there to interact with better auth to the client side
-  async function onSubmit(data: z.infer<typeof signUpSchema>) {
+  function onSubmit(data: z.infer<typeof signUpSchema>) {
+    startTransition(async () => {
     await authClient.signUp.email({
       email: data.email,
       name: data.name,
       password: data.password,
+      fetchOptions: {
+        onSuccess: () => {
+          toast.success("Account created successfully");
+          router.push("/");
+        },
+        onError: (error) => {
+          toast.error(error.error.message);
+        },
+      },
     });
+  });
   }
   return (
     
@@ -58,7 +75,8 @@ export default function SignUpPage() {
                 {fieldState.invalid && (<FieldError errors = {[fieldState.error]}/>)}
                 </Field>
             )}/>
-            <Button type="submit">Sign Up</Button>
+            <Button disabled={isPending} >{isPending ? (<><Loader2 className="size-4 animate-spin"/>
+                <span>Creating account...</span></>) : (<span>Sign Up</span>)}</Button>
           </FieldGroup>
           </form>
         </CardContent>
