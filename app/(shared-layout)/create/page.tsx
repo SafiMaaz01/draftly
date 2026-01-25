@@ -20,18 +20,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { createPostAction } from "@/app/actions";
 
 export default function CreateRoute() {
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const mutation = useMutation(api.posts.createPost);
   const form = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
@@ -42,12 +36,8 @@ export default function CreateRoute() {
 
   function onSubmit(values: z.infer<typeof postSchema>) {
     startTransition(async() => {
-      // mutation({ title: values.title, content: values.content });
-      console.log("this runs on client side");
-      await createPostAction();
-
-      toast.success("Post created successfully");
-      router.push("/");
+      console.log("Hey this runs on client side");
+      await createPostAction(values);
     });
   }
   return (
