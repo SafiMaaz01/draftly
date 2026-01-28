@@ -7,6 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
+export const dynamic = 'force-static';
+
+// false | 0 | number
+export const revalidate = 10;
+
+
 export default function BlogPage() {
   return (
     <div className="py-12">
