@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "quick-chameleon-170.convex.cloud",
+        port: "",
+      },
     ],
   },
 };
