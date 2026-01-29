@@ -16,8 +16,10 @@ interface PostIdRouteProps {
 
 export default async function PostIdRoute({ params }: PostIdRouteProps) {
     const { postId } = await params;
-    const post = await fetchQuery(api.posts.getPostById, { postId: postId});
-    const preLoadedComments = await preloadQuery(api.comments.getCommentsByPostId, { postId: postId});
+    const [post, preLoadedComments] = await Promise.all([
+        await fetchQuery(api.posts.getPostById, { postId: postId}),
+        await preloadQuery(api.comments.getCommentsByPostId, { postId: postId})
+    ]);
     
     if (!post) {
         return <div className="text-center text-6xl font-extrabold py-20 text-red-500">Post not found</div>;
