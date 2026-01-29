@@ -9,21 +9,21 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 // 'auto' | 'force-dynamic' | 'error' | 'force-static'
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 // false | 0 | number
 export const revalidate = 10;
 
 export const metadata: Metadata = {
-    title: "Blog",
-    description: "Read our latest articles and insights",
-    category: "Blog",
-    authors: [{ name: "MD SAFI MAAZ" }],
-    creator: "MD SAFI MAAZ",
-    publisher: "MD SAFI MAAZ",
-    robots: "index, follow",
-    keywords: ["blog", "articles", "insights", "draftly"],
-}
+  title: "Blog",
+  description: "Read our latest articles and insights",
+  category: "Blog",
+  authors: [{ name: "MD SAFI MAAZ" }],
+  creator: "MD SAFI MAAZ",
+  publisher: "MD SAFI MAAZ",
+  robots: "index, follow",
+  keywords: ["blog", "articles", "insights", "draftly"],
+};
 
 export default function BlogPage() {
   return (
@@ -52,7 +52,10 @@ async function LoadBlogList() {
         <Card key={post._id} className="pt-0">
           <div className="relative h-48 w-full overflow-hidden">
             <Image
-              src={post.imageUrl ?? "https://images.unsplash.com/photo-1571369985388-ddb4b4e86bd2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+              src={
+                post.imageUrl ??
+                "https://images.unsplash.com/photo-1571369985388-ddb4b4e86bd2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               fill
               className="rounded-t-lg object-cover"
               alt="image"
@@ -83,18 +86,16 @@ async function LoadBlogList() {
 function SkeletonLoadingUi() {
   return (
     <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-3">
-      {[
-        ...Array(3)].map((_, index) => (
-          <div className="flex flex-col space-y-3" key={index}>
-            <Skeleton className="h-48 w-full rounded-xl" />
-            <div className="space-y-2 flex flex-col">
-              <Skeleton className="h-6 w-3/4" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-2/3" />
-            </div>
+      {[...Array(3)].map((_, index) => (
+        <div className="flex flex-col space-y-3" key={index}>
+          <Skeleton className="h-48 w-full rounded-xl" />
+          <div className="space-y-2 flex flex-col">
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-2/3" />
           </div>
-        ))
-      }
+        </div>
+      ))}
     </div>
   );
 }
