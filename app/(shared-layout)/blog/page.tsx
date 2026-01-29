@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -13,6 +14,16 @@ export const dynamic = 'force-static';
 // false | 0 | number
 export const revalidate = 10;
 
+export const metadata: Metadata = {
+    title: "Blog",
+    description: "Read our latest articles and insights",
+    category: "Blog",
+    authors: [{ name: "MD SAFI MAAZ" }],
+    creator: "MD SAFI MAAZ",
+    publisher: "MD SAFI MAAZ",
+    robots: "index, follow",
+    keywords: ["blog", "articles", "insights", "draftly"],
+}
 
 export default function BlogPage() {
   return (

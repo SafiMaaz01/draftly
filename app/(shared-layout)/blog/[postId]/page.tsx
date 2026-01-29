@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,6 +14,39 @@ interface PostIdRouteProps {
          postId: Id<"posts">;
          }>;
 }
+
+// Dynamic metadata
+export async function generateMetadata({ params }: PostIdRouteProps): Promise<Metadata> {
+    const { postId } = await params;
+    const post = await fetchQuery(api.posts.getPostById, { postId: postId});
+    if (!post) {
+        return {
+            title: "Post not found",
+            description: "Post not found",
+        };
+    }
+    return {
+        title: post.title,
+        description: post.content,
+        category: "Post",
+        authors: [{ name: "MD SAFI MAAZ" }],
+        creator: "MD SAFI MAAZ",
+        publisher: "MD SAFI MAAZ",
+        robots: "index, follow",
+        keywords: ["post", "blog", "articles", "insights", "draftly"],
+    };
+}
+// Static metadata
+// export const metadata: Metadata = {
+//     title: "Post",
+//     description: "Read our latest articles and insights",
+//     category: "Post",
+//     authors: [{ name: "MD SAFI MAAZ" }],
+//     creator: "MD SAFI MAAZ",
+//     publisher: "MD SAFI MAAZ",
+//     robots: "index, follow",
+//     keywords: ["post", "blog", "articles", "insights", "draftly"],
+// }
 
 export default async function PostIdRoute({ params }: PostIdRouteProps) {
     const { postId } = await params;
