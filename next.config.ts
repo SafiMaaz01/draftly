@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "quick-chameleon-170.convex.cloud",
+        hostname: "reminiscent-turtle-32.convex.cloud",
         port: "",
       },
     ],
