@@ -25,8 +25,12 @@ export const createAuth = (ctx: GenericCtx<DataModel>) => {
       // The Convex plugin is required for Convex compatibility
       convex({ authConfig }),
     ],
-  })
-}
+    trustedOrigins: [
+      "https://draftly-delta.vercel.app",
+      "http://localhost:3000",
+    ],
+  });
+};
 
 // Example function for getting the current user
 // Feel free to edit, omit, etc.
