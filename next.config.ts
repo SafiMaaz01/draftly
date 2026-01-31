@@ -11,8 +11,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "reminiscent-turtle-32.convex.cloud",
-        port: "",
+        hostname: "*.convex.cloud",
+      },
+      {
+        protocol: "https",
+        hostname: "*.convex.site",
       },
     ],
   },

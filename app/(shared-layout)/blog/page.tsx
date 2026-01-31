@@ -51,7 +51,7 @@ async function LoadBlogList() {
 
   // use cache is to revalidate the data every 15 minutes
   "use cache";
-  cacheLife("hours");
+  cacheLife("minutes");
   cacheTag("blog");
   const data = await fetchQuery(api.posts.getPosts);
   return (
