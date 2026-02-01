@@ -19,7 +19,11 @@ import { CategoryBadge } from "./CategoryBadge";
 import { PostMeta } from "./PostMeta";
 import { motion } from "framer-motion";
 
-function EmptyHeroContent() {
+interface EmptyHeroContentProps {
+  forGuests?: boolean;
+}
+
+function EmptyHeroContent({ forGuests }: EmptyHeroContentProps) {
   return (
     <section className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-primary/10 -z-10" />
@@ -87,7 +91,7 @@ function EmptyHeroContent() {
             <BookOpen className="size-4" />
             Explore Articles
           </Link>
-          <Link
+          {/* <Link
             href="/create"
             className={buttonVariants({
               variant: "outline",
@@ -97,7 +101,20 @@ function EmptyHeroContent() {
           >
             Start Writing
             <ArrowRight className="size-4" />
-          </Link>
+          </Link> */}
+          {forGuests && (
+            <Link
+              href="/create"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                className: "gap-2",
+              })}
+            >
+              Start Writing
+              <ArrowRight className="size-4" />
+            </Link>
+          )}
         </motion.div>
       </div>
     </section>
