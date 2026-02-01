@@ -122,4 +122,104 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom selection color */
+  ::selection {
+    @apply bg-primary/20 text-foreground;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+/* Prose styling for blog content */
+@layer components {
+  .prose {
+    @apply leading-relaxed max-w-none;
+  }
+
+  .prose p {
+    @apply mb-6;
+  }
+
+  .prose h1 {
+    @apply text-4xl font-extrabold mt-10 mb-6;
+  }
+
+  .prose h2 {
+    @apply text-3xl font-bold mt-8 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-2xl font-semibold mt-6 mb-3;
+  }
+
+  .prose ul {
+    @apply my-6 pl-6 list-disc;
+  }
+
+  .prose ol {
+    @apply my-6 pl-6 list-decimal;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose a {
+    @apply text-primary underline underline-offset-4 hover:text-primary/80;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-primary pl-4 italic my-6 text-muted-foreground bg-muted/30 py-2 rounded-r-lg;
+  }
+
+  .prose code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary;
+  }
+
+  .prose pre {
+    @apply bg-muted p-4 rounded-xl overflow-x-auto my-6 border border-border/50;
+  }
+
+  .prose pre code {
+    @apply bg-transparent p-0 text-foreground;
+  }
+
+  /* Specific fix for TipTap placeholder */
+  .ProseMirror p.is-editor-empty:first-child::before {
+    @apply text-muted-foreground h-0 float-left pointer-events-none;
+    content: attr(data-placeholder);
+  }
+}
+
+/* Gradient text utility */
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-primary via-primary/80 to-primary/60;
+  }
+
+  .glass {
+    @apply bg-background/80 backdrop-blur-lg;
+  }
 }

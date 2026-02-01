@@ -7,12 +7,31 @@ export const getCommentsByPostId = query({
     postId: v.id("posts"),
   },
   handler: async (ctx, args) => {
-    const data = await ctx.db
+    const comments = await ctx.db
       .query("comments")
-      .filter((q) => q.eq(q.field("postId"), args.postId))
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
       .order("desc")
       .collect();
-    return data;
+
+    return Promise.all(
+      comments.map(async (comment) => {
+        const profile = await ctx.db
+          .query("userProfiles")
+          .withIndex("by_user", (q) => q.eq("userId", comment.authorId))
+          .unique();
+
+        let authorAvatar = profile?.avatarUrl;
+        if (profile?.imageStorageId) {
+          authorAvatar =
+            (await ctx.storage.getUrl(profile.imageStorageId)) ?? undefined;
+        }
+
+        return {
+          ...comment,
+          authorAvatar,
+        };
+      }),
+    );
   },
 });
 

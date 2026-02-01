@@ -57,7 +57,7 @@ export function SearchInput() {
                 >
                   <p className="font-medium truncate">{post.title}</p>
                   <p className="text-xs text-muted-foreground pt-1">
-                    {post.content.substring(0, 60)}
+                    {post.content.replace(/<[^>]*>/g, "").substring(0, 60)}...
                   </p>
                 </Link>
               ))}

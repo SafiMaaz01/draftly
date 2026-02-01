@@ -30,12 +30,23 @@ export const list = query({
     const entries = await presence.list(ctx, roomToken);
     return await Promise.all(
       entries.map(async (entry) => {
-        const user = await authComponent.getAnyUserById(ctx, entry.userId);
-        if (!user) {
-          return entry;
+        const profile = await ctx.db
+          .query("userProfiles")
+          .withIndex("by_user", (q) => q.eq("userId", entry.userId))
+          .unique();
+
+        let avatar = profile?.avatarUrl;
+        if (profile?.imageStorageId) {
+          avatar =
+            (await ctx.storage.getUrl(profile.imageStorageId)) ?? undefined;
         }
-        return { ...entry, name: user.name };
-        // return { ...entry, name: user.name, avatar: user.image };
+
+        return {
+          ...entry,
+          name: profile?.displayName || "Anonymous",
+          avatar,
+          picture: avatar,
+        };
       }),
     );
   },
@@ -56,11 +67,3 @@ export const getUserId = query({
     return user?._id;
   },
 });
-
-// export const getActiveReadersCount = query({
-//   args: { roomId: v.string() },
-//   handler: async (ctx, { roomId }) => {
-//     // Avoid adding per-user reads so all subscriptions can share same cache.
-//     return await presence.list(ctx, roomId);
-//   },
-// });
