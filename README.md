@@ -4,6 +4,17 @@
 
 ![Project Status](https://img.shields.io/badge/status-active-success.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSafiMaaz01%2Fdraftly)
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="https://placehold.co/1200x800?text=Dashboard+Preview" alt="Dashboard Preview" width="800" />
+</div>
+
+> _Add your application screenshots here_
 
 ---
 
@@ -39,17 +50,17 @@
 
 ## 🛠 Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| **Framework** | [Next.js 16](https://nextjs.org/) (App Router) |
-| **UI** | [React 19](https://react.dev/), [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (Radix), [Lucide](https://lucide.dev/) |
-| **Backend & DB** | [Convex](https://www.convex.dev/) (queries, mutations, real-time, file storage) |
-| **Auth** | [Better Auth](https://www.better-auth.com/) + [@convex-dev/better-auth](https://www.npmjs.com/package/@convex-dev/better-auth) |
-| **Forms & validation** | [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/), [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers) |
-| **Rich text** | [TipTap](https://tiptap.dev/) (headless editor), [Lowlight](https://github.com/wooorm/lowlight) for code blocks |
-| **Animations** | [Framer Motion](https://www.framer.com/motion/) |
-| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) (toast) |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) |
+| Layer                  | Technology                                                                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**          | [Next.js 16](https://nextjs.org/) (App Router)                                                                                                          |
+| **UI**                 | [React 19](https://react.dev/), [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (Radix), [Lucide](https://lucide.dev/) |
+| **Backend & DB**       | [Convex](https://www.convex.dev/) (queries, mutations, real-time, file storage)                                                                         |
+| **Auth**               | [Better Auth](https://www.better-auth.com/) + [@convex-dev/better-auth](https://www.npmjs.com/package/@convex-dev/better-auth)                          |
+| **Forms & validation** | [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/), [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers)      |
+| **Rich text**          | [TipTap](https://tiptap.dev/) (headless editor), [Lowlight](https://github.com/wooorm/lowlight) for code blocks                                         |
+| **Animations**         | [Framer Motion](https://www.framer.com/motion/)                                                                                                         |
+| **Notifications**      | [Sonner](https://sonner.emilkowal.ski/) (toast)                                                                                                         |
+| **Language**           | [TypeScript](https://www.typescriptlang.org/)                                                                                                           |
 
 ---
 
@@ -84,7 +95,7 @@ Data is read/written only through Convex functions; there is no direct DB access
   - Edit post: `fetchQuery(api.posts.getPostById, { postId }, { token })`, `fetchQuery(api.auth.getCurrentUser, {}, { token })` to enforce ownership.
 - **generateMetadata** – Same `fetchQuery` (and optionally `getToken()`) is used to build page metadata (e.g. post title, user name) for SEO.
 
-So: **server-side data flow = getToken() → fetchQuery/fetchMutation(api.*, args, { token }) → Convex runs query/mutation with auth context.**
+So: **server-side data flow = getToken() → fetchQuery/fetchMutation(api.\*, args, { token }) → Convex runs query/mutation with auth context.**
 
 ### 3. Next.js client (React)
 
@@ -98,7 +109,7 @@ So: **server-side data flow = getToken() → fetchQuery/fetchMutation(api.*, arg
   3. `fetchMutation(api.posts.createPost, { title, content, imageStorageId, ... }, { token })` (or `updatePost`/`deletePost`).
   4. `revalidatePath` and `redirect` for navigation.
 
-So: **client-side data flow = useConvexAuth() + useQuery/useMutation(api.*) for real-time UI; form submissions → Server Action → getToken() + fetchMutation → Convex.**
+So: **client-side data flow = useConvexAuth() + useQuery/useMutation(api.\*) for real-time UI; form submissions → Server Action → getToken() + fetchMutation → Convex.**
 
 ### 4. Auth flow (login/sign-up)
 
@@ -178,7 +189,6 @@ draftly/
    ```
 
 2. **Convex**
-
    - Sign up at [convex.dev](https://www.convex.dev) and link the project: `npx convex dev` (creates project if needed).
    - Note the deployment URL and site URL from the Convex dashboard or CLI.
 
@@ -204,12 +214,12 @@ draftly/
 
 ## 🔐 Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `NEXT_PUBLIC_CONVEX_URL` | Convex deployment URL (e.g. `https://xxx.convex.cloud`). |
+| Variable                      | Description                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CONVEX_URL`      | Convex deployment URL (e.g. `https://xxx.convex.cloud`).                        |
 | `NEXT_PUBLIC_CONVEX_SITE_URL` | Site URL Convex uses for auth (e.g. `http://localhost:3000` or production URL). |
-| `SITE_URL` | Same as app origin (used by Better Auth; e.g. `http://localhost:3000`). |
-| `NEXT_PUBLIC_APP_URL` | Optional; used as `metadataBase` fallback for SEO. |
+| `SITE_URL`                    | Same as app origin (used by Better Auth; e.g. `http://localhost:3000`).         |
+| `NEXT_PUBLIC_APP_URL`         | Optional; used as `metadataBase` fallback for SEO.                              |
 
 Convex secrets (e.g. for Better Auth) are set in the Convex dashboard or via `npx convex env set ...`.
 
